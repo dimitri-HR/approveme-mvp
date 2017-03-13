@@ -16,10 +16,10 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
 
-## Heading ##
+## Approve ME ##
   <!-- > Name the product in a way the reader (i.e. your target customers) will understand. -->
   > Approve ME
-## Sub-Heading ##
+<!-- ## Sub-Heading ## -->
   <!-- > Describe who the market for the product is and what benefit they get. One sentence only underneath the title. -->
   > Approval managers who need to look at the list of requests and make decision on what to approve.
 
@@ -40,7 +40,7 @@ Once the project moves into development, the press release can be used as a touc
 
 ## How to Get Started ##
   <!-- > Describe how easy it is to get started. -->
-  >C lick on New Request, fill it in and submit.
+  > Click on New Request, fill it in and submit.
 
 ## Customer Quote ##
   <!-- > Provide a quote from a hypothetical customer that describes how they experienced the benefit. -->
