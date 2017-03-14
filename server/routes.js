@@ -7,6 +7,10 @@ var {User} = require('./models');
 
 function Routes(app) {
 
+  // app.get('/', function (req, res) {
+  //   res.send();
+  // });
+
   app.get('/items', function (req, res) {
     Item.find().then(items => {
       res.send({items});
@@ -31,7 +35,7 @@ function Routes(app) {
   });
 
   app.get('*', function (req, res) {
-    res.send('Please login');
+    res.send('Please login!');
   });
 }
 

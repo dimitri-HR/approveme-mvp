@@ -2,7 +2,7 @@ var bodyParser = require('body-parser');
 var express = require('express');
 
 var mongoose = require('./db/mongoose');
-var models = require('./models');
+// var models = require('./models');
 var routes = require('./routes');
 
 var PORT = process.env.PORT || 3000;
@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 // app.use(morgan('short'));
 // app.use(morgan('tiny'));
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + './../public'));
 routes(app);
 
 
