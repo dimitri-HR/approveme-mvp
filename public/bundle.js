@@ -21571,6 +21571,8 @@
 
 	      var url = process.env.MONGODB_URI || 'http://localhost:3000/items';
 
+	      console.log('process.env.MONGODB_URI', process.env.MONGODB_URI);
+	      console.log('url', url);
 	      _axios2.default.get(url, {
 	        headers: headers
 	      }).then(function (res) {
@@ -21583,6 +21585,10 @@
 	    value: function postItemstoDb(text) {
 	      // text = JSON.stringify(text);
 	      var url = process.env.MONGODB_URI || 'http://localhost:3000/items';
+
+	      console.log('process.env.MONGODB_URI', process.env.MONGODB_URI);
+	      console.log('url', url);
+
 	      _axios2.default.post(url, {
 	        text: text
 	      }).then(function (res) {

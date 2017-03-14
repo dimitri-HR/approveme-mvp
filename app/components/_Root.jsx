@@ -31,6 +31,8 @@ class _Root extends React.Component {
 
     var url = process.env.MONGODB_URI || 'http://localhost:3000/items';
 
+    console.log('process.env.MONGODB_URI', process.env.MONGODB_URI);
+    console.log('url', url);
     axios.get(url, {
       headers: headers
     })
@@ -43,6 +45,10 @@ class _Root extends React.Component {
   postItemstoDb(text) {
     // text = JSON.stringify(text);
     var url = process.env.MONGODB_URI || 'http://localhost:3000/items';
+
+    console.log('process.env.MONGODB_URI', process.env.MONGODB_URI);
+    console.log('url', url);
+
     axios.post(url, {
       text: text
     })
