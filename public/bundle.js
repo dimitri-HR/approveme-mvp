@@ -21545,10 +21545,11 @@
 	    var _this = _possibleConstructorReturn(this, (_Root.__proto__ || Object.getPrototypeOf(_Root)).call(this, props));
 
 	    _this.state = {
-	      data: []
+	      items: []
 	    };
 
 	    _this.onItemAdd = _this.onItemAdd.bind(_this);
+	    _this.onToggle = _this.onToggle.bind(_this);
 	    // this.getAllItems = this.getAllItems.bind(this);
 
 	    return _this;
@@ -21574,12 +21575,12 @@
 	        headers: headers
 	      }).then(function (res) {
 	        // console.log('RES', res.data.items);
-	        _this2.setState({ data: res.data.items });
+	        _this2.setState({ items: res.data.items });
 	      });
 	    }
 	  }, {
-	    key: 'postItemstoDb',
-	    value: function postItemstoDb(text) {
+	    key: 'postItemsToDb',
+	    value: function postItemsToDb(text) {
 	      _axios2.default.post('/items', {
 	        text: text
 	      }).then(function (res) {
@@ -21591,11 +21592,22 @@
 	    key: 'onItemAdd',
 	    value: function onItemAdd(text) {
 	      this.setState({
-	        data: [].concat(_toConsumableArray(this.state.data), [{
+	        items: [].concat(_toConsumableArray(this.state.items), [{
 	          text: text
 	        }])
 	      });
-	      this.postItemstoDb(text);
+	      this.postItemsToDb(text);
+	    }
+	  }, {
+	    key: 'onToggle',
+	    value: function onToggle(id) {
+	      var updatedItems = this.state.items.map(function (item) {
+	        if (item._id === id) {
+	          item.approved = !item.approved;
+	        }
+	        return item;
+	      });
+	      this.setState({ items: updatedItems });
 	    }
 	  }, {
 	    key: 'render',
@@ -21617,7 +21629,7 @@
 	            _react2.default.createElement(
 	              'ul',
 	              { className: 'list-group' },
-	              _react2.default.createElement(_ItemList2.default, { data: this.state.data }),
+	              _react2.default.createElement(_ItemList2.default, { data: this.state.items, onToggle: this.onToggle }),
 	              _react2.default.createElement(_ItemAdd2.default, { onItemAdd: this.onItemAdd })
 	            )
 	          )
@@ -23142,13 +23154,13 @@
 
 	var ItemList = function ItemList(props) {
 
-	  // console.log(props);
+	  // console.log('props', props);
 	  return _react2.default.createElement(
 	    'div',
 	    null,
 	    props.data.map(function (item) {
 	      // console.log('item', item);
-	      return _react2.default.createElement(_Item2.default, { key: item._id, row: item });
+	      return _react2.default.createElement(_Item2.default, { key: item._id, item: item, onToggle: props.onToggle });
 	    })
 	  );
 	};
@@ -23172,13 +23184,19 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Item = function Item(props) {
+	  // console.log('Item props', props);
+
+	  var itemClassName = props.item.approved ? 'item item-approved list-group-item' : 'item text-primary list-group-item';
+
 	  return _react2.default.createElement(
 	    'div',
-	    { className: 'list-group-item' },
+	    { className: itemClassName, onClick: function onClick() {
+	        return props.onToggle(props.item._id);
+	      } },
 	    _react2.default.createElement(
 	      'div',
 	      null,
-	      props.row.text
+	      props.item.text
 	    )
 	  );
 	};

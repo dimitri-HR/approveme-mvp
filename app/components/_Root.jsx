@@ -10,10 +10,11 @@ class _Root extends React.Component {
     super(props);
 
     this.state = {
-      data: []
+      items: []
     };
 
     this.onItemAdd = this.onItemAdd.bind(this);
+    this.onToggle = this.onToggle.bind(this);
     // this.getAllItems = this.getAllItems.bind(this);
 
   }
@@ -35,11 +36,11 @@ class _Root extends React.Component {
     })
     .then(res => {
       // console.log('RES', res.data.items);
-        this.setState({ data: res.data.items });
+        this.setState({ items: res.data.items });
     });
   }
 
-  postItemstoDb(text) {
+  postItemsToDb(text) {
     axios.post('/items', {
       text: text
     })
@@ -51,15 +52,26 @@ class _Root extends React.Component {
 
   onItemAdd (text) {
     this.setState({
-      data: [
-        ...this.state.data,
+      items: [
+        ...this.state.items,
         {
           text: text
         }
       ]
     });
-    this.postItemstoDb(text);
+    this.postItemsToDb(text);
   }
+
+  onToggle (id) {
+    var updatedItems = this.state.items.map(item => {
+      if (item._id === id) {
+        item.approved = !item.approved;
+      }
+      return item;
+    })
+    this.setState({ items: updatedItems });
+  }
+
   render () {
     return (
       <div className='container'>
@@ -67,9 +79,8 @@ class _Root extends React.Component {
           <div className='col-xs-10 col-sm-9 col-md-7'>
             <h3 className='page-header'>Get Approved - FAST</h3>
             <ul className="list-group">
-              <ItemList data={this.state.data}/>
               {/*<ItemSearch onSearch={this.onSearch}/>*/}
-              {/*<ItemList items={filteredItems} onToggle={this.onToggle}/>*/}
+              <ItemList data={this.state.items} onToggle={this.onToggle}/>
               <ItemAdd onItemAdd={this.onItemAdd}/>
             </ul>
           </div>

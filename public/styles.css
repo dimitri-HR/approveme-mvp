@@ -1,0 +1,21 @@
+.item {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  padding: 1rem;
+  transition: background .3s ease;
+  /*color: #999;*/
+}
+
+.item:hover {
+  background: #dff2fe;
+}
+
+.item-approved {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+.container__footer {
+  padding-top: 20px;
+}
