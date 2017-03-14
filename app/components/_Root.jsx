@@ -29,11 +29,8 @@ class _Root extends React.Component {
     var headers = defaultCorsHeaders;
     headers['content-Type'] = 'application/json';
 
-    var url = process.env.MONGODB_URI || 'http://localhost:3000/items';
-
-    console.log('process.env.MONGODB_URI', process.env.MONGODB_URI);
-    console.log('url', url);
-    axios.get(url, {
+    // http://approveme.herokuapp.com/items
+    axios.get('/items', {
       headers: headers
     })
     .then(res => {
@@ -43,13 +40,7 @@ class _Root extends React.Component {
   }
 
   postItemstoDb(text) {
-    // text = JSON.stringify(text);
-    var url = process.env.MONGODB_URI || 'http://localhost:3000/items';
-
-    console.log('process.env.MONGODB_URI', process.env.MONGODB_URI);
-    console.log('url', url);
-
-    axios.post(url, {
+    axios.post('/items', {
       text: text
     })
     .then(res => {

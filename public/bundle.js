@@ -21500,7 +21500,7 @@
 /* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -21569,11 +21569,8 @@
 	      var headers = defaultCorsHeaders;
 	      headers['content-Type'] = 'application/json';
 
-	      var url = process.env.MONGODB_URI || 'http://localhost:3000/items';
-
-	      console.log('process.env.MONGODB_URI', process.env.MONGODB_URI);
-	      console.log('url', url);
-	      _axios2.default.get(url, {
+	      // http://approveme.herokuapp.com/items
+	      _axios2.default.get('/items', {
 	        headers: headers
 	      }).then(function (res) {
 	        // console.log('RES', res.data.items);
@@ -21583,13 +21580,7 @@
 	  }, {
 	    key: 'postItemstoDb',
 	    value: function postItemstoDb(text) {
-	      // text = JSON.stringify(text);
-	      var url = process.env.MONGODB_URI || 'http://localhost:3000/items';
-
-	      console.log('process.env.MONGODB_URI', process.env.MONGODB_URI);
-	      console.log('url', url);
-
-	      _axios2.default.post(url, {
+	      _axios2.default.post('/items', {
 	        text: text
 	      }).then(function (res) {
 	        console.log('POST completed', res);
@@ -21639,7 +21630,6 @@
 	}(_react2.default.Component);
 
 	exports.default = _Root;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
 /* 179 */
