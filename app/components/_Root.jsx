@@ -29,7 +29,9 @@ class _Root extends React.Component {
     var headers = defaultCorsHeaders;
     headers['content-Type'] = 'application/json';
 
-    axios.get('http://localhost:3000/items', {
+    var url = process.env.MONGODB_URI || 'http://localhost:3000/items';
+
+    axios.get(url, {
       headers: headers
     })
     .then(res => {
@@ -40,7 +42,8 @@ class _Root extends React.Component {
 
   postItemstoDb(text) {
     // text = JSON.stringify(text);
-    axios.post('http://localhost:3000/items', {
+    var url = process.env.MONGODB_URI || 'http://localhost:3000/items';
+    axios.post(url, {
       text: text
     })
     .then(res => {

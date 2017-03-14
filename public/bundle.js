@@ -21500,7 +21500,7 @@
 /* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -21569,7 +21569,9 @@
 	      var headers = defaultCorsHeaders;
 	      headers['content-Type'] = 'application/json';
 
-	      _axios2.default.get('http://localhost:3000/items', {
+	      var url = process.env.MONGODB_URI || 'http://localhost:3000/items';
+
+	      _axios2.default.get(url, {
 	        headers: headers
 	      }).then(function (res) {
 	        // console.log('RES', res.data.items);
@@ -21580,7 +21582,8 @@
 	    key: 'postItemstoDb',
 	    value: function postItemstoDb(text) {
 	      // text = JSON.stringify(text);
-	      _axios2.default.post('http://localhost:3000/items', {
+	      var url = process.env.MONGODB_URI || 'http://localhost:3000/items';
+	      _axios2.default.post(url, {
 	        text: text
 	      }).then(function (res) {
 	        console.log('POST completed', res);
@@ -21630,6 +21633,7 @@
 	}(_react2.default.Component);
 
 	exports.default = _Root;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
 /* 179 */
