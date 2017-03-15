@@ -16,6 +16,7 @@ class _Root extends React.Component {
 
     this.onItemAdd = this.onItemAdd.bind(this);
     this.onToggle = this.onToggle.bind(this);
+    this.onChange = this.onChange.bind(this);
     // this.getAllItems = this.getAllItems.bind(this);
 
   }
@@ -97,20 +98,20 @@ class _Root extends React.Component {
   filterItems() {
     var filteredItems = this.state.items;
     var showAll = this.state.showAll;
-    // let filteredItems = items;
 
     // filter by showAll
     filteredItems = filteredItems.filter(item => {
       return !item.approved || showAll;
     });
 
-    // filter by searchText
-    // filteredTodos = filteredTodos.filter(todo => {
-    //     let todoText = todo.text.toLowerCase();
-    //     return todoText.indexOf(searchText) > -1;
-    // });
-
     return filteredItems;
+  }
+
+  onChange() {
+    var showAll = this.refs.showAll.checked; // TRUE or FALSE
+    this.setState({
+      showAll: showAll
+    });
   }
 
   render () {
@@ -120,8 +121,14 @@ class _Root extends React.Component {
         <div className='row'>
           <div className='col-xs-10 col-sm-9 col-md-7'>
             <h3 className='page-header'>Get Approved - FAST</h3>
+
+            <div className='checkbox has-primary'>
+              <label>
+                <input type='checkbox' ref='showAll' onChange={this.onChange}/> Show All
+              </label>
+            </div>
+
             <ul className="list-group">
-              {/*<ItemSearch onSearch={this.onSearch}/>*/}
               <ItemList data={filteredItems} onToggle={this.onToggle}/>
               <ItemAdd onItemAdd={this.onItemAdd}/>
             </ul>

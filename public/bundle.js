@@ -21551,6 +21551,7 @@
 
 	    _this.onItemAdd = _this.onItemAdd.bind(_this);
 	    _this.onToggle = _this.onToggle.bind(_this);
+	    _this.onChange = _this.onChange.bind(_this);
 	    // this.getAllItems = this.getAllItems.bind(this);
 
 	    return _this;
@@ -21634,20 +21635,21 @@
 	    value: function filterItems() {
 	      var filteredItems = this.state.items;
 	      var showAll = this.state.showAll;
-	      // let filteredItems = items;
 
 	      // filter by showAll
 	      filteredItems = filteredItems.filter(function (item) {
 	        return !item.approved || showAll;
 	      });
 
-	      // filter by searchText
-	      // filteredTodos = filteredTodos.filter(todo => {
-	      //     let todoText = todo.text.toLowerCase();
-	      //     return todoText.indexOf(searchText) > -1;
-	      // });
-
 	      return filteredItems;
+	    }
+	  }, {
+	    key: 'onChange',
+	    value: function onChange() {
+	      var showAll = this.refs.showAll.checked; // TRUE or FALSE
+	      this.setState({
+	        showAll: showAll
+	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -21666,6 +21668,16 @@
 	              'h3',
 	              { className: 'page-header' },
 	              'Get Approved - FAST'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'checkbox has-primary' },
+	              _react2.default.createElement(
+	                'label',
+	                null,
+	                _react2.default.createElement('input', { type: 'checkbox', ref: 'showAll', onChange: this.onChange }),
+	                ' Show All'
+	              )
 	            ),
 	            _react2.default.createElement(
 	              'ul',
