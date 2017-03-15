@@ -1,3 +1,8 @@
+.page-header {
+  text-align: center;
+  color: #286090;
+}
+
 .item {
   align-items: center;
   cursor: pointer;

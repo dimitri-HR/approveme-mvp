@@ -7,9 +7,16 @@ var {User} = require('./models');
 
 function Routes(app) {
 
-  // app.get('/', function (req, res) {
-  //   res.send();
-  // });
+  app.patch('/items/:id', function (req, res) {
+    var id = req.params.id;
+    var approved = req.body.approved;
+    Item.findByIdAndUpdate(id, {$set: {approved: approved}}, {new: false})
+    .then(item => {
+      res.send({item});
+    }).catch( err => {
+      res.status(400).send(err);
+    })
+  });
 
   app.get('/items', function (req, res) {
     Item.find().then(items => {

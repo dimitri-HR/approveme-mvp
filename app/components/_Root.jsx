@@ -10,12 +10,17 @@ class _Root extends React.Component {
     super(props);
 
     this.state = {
-      items: []
+      items: [],
+      showAll: true
     };
 
     this.onItemAdd = this.onItemAdd.bind(this);
     this.onToggle = this.onToggle.bind(this);
     // this.getAllItems = this.getAllItems.bind(this);
+
+  }
+
+  componentDidUpdate() {
 
   }
 
@@ -37,6 +42,17 @@ class _Root extends React.Component {
     .then(res => {
       // console.log('RES', res.data.items);
         this.setState({ items: res.data.items });
+    });
+  }
+
+  updateItemsOnDb(id, approved) {
+    console.log('updateItemsOnDb id', id);
+    axios.patch('/items/' + id, {
+      approved: approved
+    })
+    .then(res => {
+      console.log('POST completed', res);
+      // this.setState({ data: res.data.items });
     });
   }
 
@@ -63,16 +79,42 @@ class _Root extends React.Component {
   }
 
   onToggle (id) {
+    console.log('id', id);
+    var approved;
     var updatedItems = this.state.items.map(item => {
       if (item._id === id) {
         item.approved = !item.approved;
+        approved = item.approved;
       }
       return item;
     })
+    console.log('id', id);
+    this.updateItemsOnDb(id, approved)
     this.setState({ items: updatedItems });
+
+  }
+
+  filterItems() {
+    var filteredItems = this.state.items;
+    var showAll = this.state.showAll;
+    // let filteredItems = items;
+
+    // filter by showAll
+    filteredItems = filteredItems.filter(item => {
+      return !item.approved || showAll;
+    });
+
+    // filter by searchText
+    // filteredTodos = filteredTodos.filter(todo => {
+    //     let todoText = todo.text.toLowerCase();
+    //     return todoText.indexOf(searchText) > -1;
+    // });
+
+    return filteredItems;
   }
 
   render () {
+    var filteredItems = this.filterItems();
     return (
       <div className='container'>
         <div className='row'>
@@ -80,7 +122,7 @@ class _Root extends React.Component {
             <h3 className='page-header'>Get Approved - FAST</h3>
             <ul className="list-group">
               {/*<ItemSearch onSearch={this.onSearch}/>*/}
-              <ItemList data={this.state.items} onToggle={this.onToggle}/>
+              <ItemList data={filteredItems} onToggle={this.onToggle}/>
               <ItemAdd onItemAdd={this.onItemAdd}/>
             </ul>
           </div>

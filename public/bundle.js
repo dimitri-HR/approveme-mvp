@@ -21545,7 +21545,8 @@
 	    var _this = _possibleConstructorReturn(this, (_Root.__proto__ || Object.getPrototypeOf(_Root)).call(this, props));
 
 	    _this.state = {
-	      items: []
+	      items: [],
+	      showAll: true
 	    };
 
 	    _this.onItemAdd = _this.onItemAdd.bind(_this);
@@ -21556,6 +21557,9 @@
 	  }
 
 	  _createClass(_Root, [{
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate() {}
+	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      var _this2 = this;
@@ -21576,6 +21580,17 @@
 	      }).then(function (res) {
 	        // console.log('RES', res.data.items);
 	        _this2.setState({ items: res.data.items });
+	      });
+	    }
+	  }, {
+	    key: 'updateItemsOnDb',
+	    value: function updateItemsOnDb(id, approved) {
+	      console.log('updateItemsOnDb id', id);
+	      _axios2.default.patch('/items/' + id, {
+	        approved: approved
+	      }).then(function (res) {
+	        console.log('POST completed', res);
+	        // this.setState({ data: res.data.items });
 	      });
 	    }
 	  }, {
@@ -21601,17 +21616,43 @@
 	  }, {
 	    key: 'onToggle',
 	    value: function onToggle(id) {
+	      console.log('id', id);
+	      var approved;
 	      var updatedItems = this.state.items.map(function (item) {
 	        if (item._id === id) {
 	          item.approved = !item.approved;
+	          approved = item.approved;
 	        }
 	        return item;
 	      });
+	      console.log('id', id);
+	      this.updateItemsOnDb(id, approved);
 	      this.setState({ items: updatedItems });
+	    }
+	  }, {
+	    key: 'filterItems',
+	    value: function filterItems() {
+	      var filteredItems = this.state.items;
+	      var showAll = this.state.showAll;
+	      // let filteredItems = items;
+
+	      // filter by showAll
+	      filteredItems = filteredItems.filter(function (item) {
+	        return !item.approved || showAll;
+	      });
+
+	      // filter by searchText
+	      // filteredTodos = filteredTodos.filter(todo => {
+	      //     let todoText = todo.text.toLowerCase();
+	      //     return todoText.indexOf(searchText) > -1;
+	      // });
+
+	      return filteredItems;
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var filteredItems = this.filterItems();
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'container' },
@@ -21629,7 +21670,7 @@
 	            _react2.default.createElement(
 	              'ul',
 	              { className: 'list-group' },
-	              _react2.default.createElement(_ItemList2.default, { data: this.state.items, onToggle: this.onToggle }),
+	              _react2.default.createElement(_ItemList2.default, { data: filteredItems, onToggle: this.onToggle }),
 	              _react2.default.createElement(_ItemAdd2.default, { onItemAdd: this.onItemAdd })
 	            )
 	          )
